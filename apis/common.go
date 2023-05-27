@@ -1,39 +1,27 @@
 package apis
 
 import (
-	"time"
+	"strconv"
+	"strings"
 
-	"go.mongodb.org/mongo-driver/bson/primitive"
+	apis "github.com/ini8labs/admin-service/src/apis"
 )
 
-func primitiveToString(p primitive.ObjectID) string {
-	return p.Hex()
-}
-
-func stringToPrimitive(s string) primitive.ObjectID {
-	var a, _ = primitive.ObjectIDFromHex(s)
-	return a
-}
-
-func convertTimeToPrimitive(date Date) primitive.DateTime {
-
-	d := time.Date(date.Year, time.Month(date.Month), date.Day, 0, 0, 0, 0, time.UTC)
-
-	return primitive.NewDateTimeFromTime(d)
-
-}
-
-func convertPrimitiveToTime(date primitive.DateTime) Date {
-	t := date.Time()
-
-	return Date{
-		Day:   t.Day(),
-		Month: int(t.Month()),
-		Year:  t.Year(),
+func convertDateToString(date apis.Date) string {
+	dateArray := []int{date.Day, date.Month, date.Year}
+	strArray := make([]string, len(dateArray))
+	for i, num := range dateArray {
+		strArray[i] = strconv.Itoa(num)
 	}
+	str := strings.Join(strArray, "/")
+	return str
 }
 
-func convertTimeToString(date time.Time) string {
-	str := date.Format("2006-01-02")
+func convertWinNumbersToString(numbers []int) string {
+	strArray := make([]string, len(numbers))
+	for i, num := range numbers {
+		strArray[i] = strconv.Itoa(num)
+	}
+	str := strings.Join(strArray, ",")
 	return str
 }

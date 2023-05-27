@@ -17,14 +17,3 @@ type Date struct {
 	Month int `json:"month,omitempty"`
 	Year  int `json:"year,omitempty"`
 }
-
-type EventsInfo struct {
-	EventUID      string `json:"event_id,omitempty"`
-	EventDate     Date   `json:"event_date,omitempty"`
-	EventName     string `json:"name,omitempty"`
-	EventType     string `json:"event_type,omitempty"`
-	WinningNumber []int  `json:"winning_number,omitempty"`
-}
-
-type GenerateEventsInfoPDF struct {
-}
