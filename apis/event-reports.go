@@ -10,7 +10,7 @@ import (
 	apis "github.com/ini8labs/admin-service/src/apis"
 )
 
-func drawColumnAndInsertHeaders(pdf *gofpdf.Fpdf, x float64, y float64, pageNuM float64) {
+func drawColumnAndInsertEventHeaders(pdf *gofpdf.Fpdf, x float64, y float64, pageNuM float64) {
 
 	height := 11.0
 
@@ -37,7 +37,7 @@ func drawColumnAndInsertHeaders(pdf *gofpdf.Fpdf, x float64, y float64, pageNuM 
 	pdf.CellFormat(42, height, "Winning Numbers", gofpdf.BorderFull, gofpdf.LineBreakNone, gofpdf.AlignMiddle, true, 0, "")
 }
 
-func insertValues(pdf *gofpdf.Fpdf, eventsInfo []apis.EventsInfo, x float64, y float64) {
+func insertEventInfo(pdf *gofpdf.Fpdf, eventsInfo []apis.EventsInfo, x float64, y float64) {
 	pdf.SetFont("times", "", 11)
 	pdf.SetTextColor(0, 0, 0)
 	breadth := 11.0
@@ -71,9 +71,9 @@ func insertValues(pdf *gofpdf.Fpdf, eventsInfo []apis.EventsInfo, x float64, y f
 
 			pdf.AddPage()
 			w, h := pdf.GetPageSize()
-			drawBanner(pdf, w, h, bannerHt)
+			drawBanner(pdf, w, h, bannerHt, "Monthly Event Info")
 			drawFooter(pdf, w, h, bannerHt)
-			drawColumnAndInsertHeaders(pdf, xIndent, yIndent, pageNum)
+			drawColumnAndInsertEventHeaders(pdf, xIndent, yIndent, pageNum)
 			pdf.SetFont("times", "", 11)
 			pdf.SetTextColor(0, 0, 0)
 
@@ -137,10 +137,10 @@ func (s Server) generateEventReport(c *gin.Context) {
 
 	w, h := pdf.GetPageSize()
 
-	drawBanner(pdf, w, h, bannerHt)
+	drawBanner(pdf, w, h, bannerHt, "Monthly Event Info")
 	drawFooter(pdf, w, h, bannerHt)
-	drawColumnAndInsertHeaders(pdf, xIndent, yIndent, 1)
-	insertValues(pdf, result, xIndent, yIndent)
+	drawColumnAndInsertEventHeaders(pdf, xIndent, yIndent, 1)
+	insertEventInfo(pdf, result, xIndent, yIndent)
 
 	//pdf.SetFillColor(103, 60, 79)
 

@@ -10,7 +10,7 @@ func NewServer(server Server) error {
 
 	// API end point\
 	r.GET("/api/v1/generate-report/events", server.generateEventReport)
-	//r.GET("/api/v1/download-link", server.downloadLink)
+	r.GET("/api/v1/generate-report/winners", server.generateWinnersReport)
 	//r.POST("/api/v1/download-pdf", server.downloadPDF)
 
 	return r.Run(server.Addr)
